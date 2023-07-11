@@ -1,0 +1,337 @@
+{
+  "name": "Blade",
+  "scopeName": "source.blade",
+  "patterns": [
+    {
+      "name": "meta.declaration.blade",
+      "begin": "^\\w*\\b(import)\\b",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.other.import.blade"
+        }
+      },
+      "end": "\n",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.terminator.blade"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#strings"
+        },
+        {
+          "include": "#comments"
+        },
+        {
+          "match": "\\b(as)\\b",
+          "name": "keyword.other.import.blade"
+        }
+      ]
+    },
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#punctuations"
+    },
+    {
+      "include": "#anotations"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#constants-and-special-vars"
+    },
+    {
+      "include": "#strings"
+    }
+  ],
+  "repository": {
+    "decorators": {
+      "patterns": [
+        {
+          "match": "(@[a-zA-Z_]+)",
+          "captures": {
+            "0": {
+              "name": "variable.other.name.blade"
+            }
+          }
+        }
+      ]
+    },
+    "comments": {
+      "patterns": [
+        {
+          "match": "\/\\*\\*\/",
+          "name": "comment.block.empty.blade",
+          "captures": {
+            "0": {
+              "name": "punctuation.definition.comment.blade"
+            }
+          }
+        },
+        {
+          "include": "#comments-doc-oldschool"
+        },
+        {
+          "include": "#comments-doc"
+        },
+        {
+          "include": "#comments-inline"
+        }
+      ]
+    },
+    "comments-doc-oldschool": {
+      "patterns": [
+        {
+          "begin": "\/\\*",
+          "end": "\\*\/",
+          "name": "comment.block.documentation.blade",
+          "patterns": [
+            {
+              "include": "#comments-doc-oldschool"
+            },
+            {
+              "include": "#comments-block"
+            },
+            {
+              "include": "#decorators"
+            }
+          ]
+        }
+      ]
+    },
+    "comments-doc": {
+      "patterns": [
+        {
+          "name": "comment.block.documentation.blade",
+          "begin": "\/\\*",
+          "while": "^\\s*\\*\/",
+          "patterns": [
+            {
+              "include": "#decorators"
+            }
+          ]
+        }
+      ]
+    },
+    "comments-inline": {
+      "patterns": [
+        {
+          "include": "#comments-block"
+        },
+        {
+          "captures": {
+            "1": {
+              "name": "comment.line.number-sign.blade"
+            }
+          },
+          "match": "((#).*)$"
+        }
+      ]
+    },
+    "comments-block": {
+      "patterns": [
+        {
+          "begin": "\/\\*",
+          "end": "\\*\/",
+          "name": "comment.block.blade",
+          "patterns": [
+            {
+              "include": "#comments-block"
+            }
+          ]
+        }
+      ]
+    },
+    "anotations": {
+      "patterns": [
+        {
+          "match": "(@[a-zA-Z0-9_]+)",
+          "name": "storage.type.annotation.blade"
+        },
+        {
+          "match": "([a-zA-Z0-9_]+:)",
+          "name": "meta.structure.dictionary.key.blade"
+        }
+      ]
+    },
+    "constants-and-special-vars": {
+      "patterns": [
+        {
+          "match": "(?<!\\$)\\b(true|false|nil)\\b(?!\\$)",
+          "name": "constant.language.blade"
+        },
+        {
+          "match": "((?<!\\$)\\b(self|parent)\\b(?!\\$)|(__[a-zA-Z_0-9]+__))",
+          "name": "variable.language.blade"
+        },
+        {
+          "match": "(?<!\\$)\\b((0b[0-1]*)|(0c[0-7]*)|(0x[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)\\b(?!\\$)",
+          "name": "constant.numeric.blade"
+        },
+        {
+          "match": "(?<![a-zA-Z0-9_\\$])([_\\$]*[A-Z][a-zA-Z0-9_\\$]*)",
+          "name": "support.class.blade"
+        },
+        {
+          "match": "([_\\$]*[a-z][a-zA-Z0-9_\\$]*)\\s*\\(",
+          "captures": {
+            "1": {
+              "name": "entity.name.function.blade"
+            }
+          }
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "match": "(?<!\\$)\\bas\\b(?!\\$)",
+          "name": "storage.modifier.cast.blade"
+        },
+        {
+          "match": "(?<!\\$)\\b(try|catch|finally|die)\\b(?!\\$)",
+          "name": "keyword.control.catch-exception.blade"
+        },
+        {
+          "match": "(?<!\\$)\\b(break|when|continue|default|do|else|for|if|in|return|using|while|iter)\\b(?!\\$)",
+          "name": "keyword.control.blade"
+        },
+        {
+          "match": "(?<!\\$)\\b(or|and|assert)\\b(?!\\$)",
+          "name": "keyword.control.boolean.blade"
+        },
+        {
+          "match": "(?<!\\$)\\b(var|class|def)\\b(?!\\$)",
+          "name": "storage.type.declarations.blade"
+        },
+        {
+          "match": "(?<!\\$)\\b(is\\!?)\\b(?!\\$)",
+          "name": "keyword.operator.blade"
+        },
+        {
+          "match": "\\?\\?",
+          "name": "keyword.operator.conditional.blade"
+        },
+        {
+          "match": "(<<|>>|~|\\^|\\||&)",
+          "name": "keyword.operator.bitwise.blade"
+        },
+        {
+          "match": "((&|\\^|\\||<<|>>?)=)",
+          "name": "keyword.operator.assignment.bitwise.blade"
+        },
+        {
+          "match": "(==|!=|<<?=?|>>?=?|(\\.\\.\\.))",
+          "name": "keyword.operator.comparison.blade"
+        },
+        {
+          "match": "(([+\\*\/%-]|~)=)",
+          "name": "keyword.operator.assignment.arithmetic.blade"
+        },
+        {
+          "match": "(=)",
+          "name": "keyword.operator.assignment.blade"
+        },
+        {
+          "match": "(\\-\\-|\\+\\+)",
+          "name": "keyword.operator.increment-decrement.blade"
+        },
+        {
+          "match": "(\\-|\\+|\\*|\\/|\\~\\/|%|\\*\\*)",
+          "name": "keyword.operator.arithmetic.blade"
+        },
+        {
+          "match": "(!)",
+          "name": "keyword.operator.binary.blade"
+        },
+        {
+          "match": "(?<!\\$)\\b(static)\\b(?!\\$)",
+          "name": "storage.modifier.blade"
+        },
+        {
+          "match": "(?<!\\$)\\b(?:echo)\\b(?!\\$)",
+          "name": "keyword.other.type.primitive.blade"
+        },
+        {
+          "match": "(?<!\\$)\\b(__(?:args|file)__)\\b(?!\\$)",
+          "name": "constant.language.blade"
+        }
+      ]
+    },
+    "string-interpolation": {
+      "patterns": [
+        {
+          "match": "\\$(\\{([^{}]+)\\})",
+          "captures": {
+            "2": {
+              "name": "variable.parameter.blade"
+            },
+            "3": {
+              "name": "variable.parameter.blade"
+            }
+          }
+        },
+        {
+          "match": "\\\\.",
+          "name": "constant.character.escape.blade"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "begin": "(?<!\\|r)\"",
+          "end": "\"",
+          "name": "string.interpolated.double.blade",
+          "patterns": [
+            {
+              "match": "\\n",
+              "name": "string.interpolated.double.blade"
+            },
+            {
+              "include": "#string-interpolation"
+            }
+          ]
+        },
+        {
+          "begin": "(?<!\\|r)'",
+          "end": "'",
+          "name": "string.interpolated.single.blade",
+          "patterns": [
+            {
+              "match": "\\n",
+              "name": "string.interpolated.single.blade"
+            },
+            {
+              "include": "#string-interpolation"
+            }
+          ]
+        }
+      ]
+    },
+    "punctuations": {
+      "patterns": [
+        {
+          "match": ";",
+          "name": "meta.punctuation.semicolon.blade"
+        },
+        {
+          "match": ",",
+          "name": "meta.punctuation.comma.blade"
+        },
+        {
+          "match": "\n",
+          "name": "meta.punctuation.terminator.blade"
+        },
+        {
+          "match": "\\.",
+          "name": "meta.punctuation.dot.blade"
+        }
+      ]
+    }
+  }
+}

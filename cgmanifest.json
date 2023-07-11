@@ -1,0 +1,18 @@
+{
+  "registrations": [
+    {
+      "component": {
+        "type": "git",
+        "git": {
+          "name": "blade-lang/blade-textmate",
+          "repositoryUrl": "https://github.com/blade-lang/blade-textmate",
+          "commitHash": "1866de22c09781cbceacc2c98063f7bf77b1ca62"
+        }
+      },
+      "license": "MIT",
+      "version": "0.1.0",
+      "description": "The official Blade Programming Language textmate bundle."
+    }
+  ],
+  "version": 1
+}

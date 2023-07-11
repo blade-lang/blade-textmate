@@ -1,0 +1,35 @@
+{
+  "name": "blade",
+  "description": "%description%",
+  "publisher": "blade-lang",
+  "author": "Ore Richard Muyiwa",
+  "version": "0.1.0",
+  "contributes": {
+    "languages": [
+      {
+        "id": "blade",
+        "aliases": [
+          "Blade",
+          "blade"
+        ],
+        "extensions": [
+          ".b"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "blade",
+        "scopeName": "source.blade",
+        "path": "./syntaxes/blade.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "blade",
+        "path": "./snippets/blade.code-snippets"
+      }
+    ]
+  }
+}
